@@ -3,6 +3,7 @@ package fr.insee.sndioformationdockerkube.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "utilisateur")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
