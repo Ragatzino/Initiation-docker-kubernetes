@@ -16,6 +16,9 @@ import java.util.List;
 public class UserController {
 
     private UserService userService;
+    @Value("${HELLO_MESSAGE:hello-world}")
+    private String helloMessage;
+    
     @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
@@ -50,5 +53,10 @@ public class UserController {
                     HttpStatus.NOT_FOUND, e.getMessage(), e);
         }
     }
-
+    
+    @GetMapping(path = "hello")
+    public String hello() {
+        return helloMessage;
+    }
+    
 }
