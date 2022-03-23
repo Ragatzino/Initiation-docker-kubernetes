@@ -1,0 +1,23 @@
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: tomcatapp-ingress
+  labels:
+    name: tomcatapp-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+
+spec:
+  rules:
+  - host: {{ .Values.tomcat.ingress.host }}
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+          ## metadata du service
+            name: tomcatapp-service
+            port: 
+              number: 8080

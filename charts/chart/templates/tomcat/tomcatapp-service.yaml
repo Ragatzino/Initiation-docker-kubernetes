@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: tomcatapp-service
+spec:
+  type: LoadBalancer
+  selector:
+# metadata labels du deployment par ex
+    app: {{ .Values.tomcat.deployment.name }}
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 8080

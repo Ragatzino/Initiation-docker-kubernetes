@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tomcatapp-configmap
+data:
+  HELLO_MESSAGE: {{ .Values.tomcat.configmap.hellomessage }}
+  SPRING_H2_CONSOLE_ENABLED: {{ .Values.tomcat.configmap.hellomessage }}
+  SPRING_DATASOURCE_URL: "{{ .Values.tomcat.configmap.datasourceUrlStart }}{{ .Values.postgres.service.name }}:{{ .Values.postgres.service.port }}/postgres"
+  SPRING_DATASOURCE_DRIVERCLASSNAME: {{ .Values.tomcat.configmap.hellomessage }}
+  SPRING_JPA_DATABASE-PLATFORM: {{ .Values.tomcat.configmap.hellomessage }}

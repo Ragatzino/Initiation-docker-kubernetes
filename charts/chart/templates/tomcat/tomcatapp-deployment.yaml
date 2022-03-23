@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.tomcat.deployment.name }}
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: {{ .Values.tomcat.deployment.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.tomcat.deployment.name }}
+    spec:
+      containers:
+        - name: tomcatapp-container
+          image: "{{ .Values.tomcat.image.name }}:{{ .Values.tomcat.image.tag }}"
+          ports:
+            - containerPort: 8080
+          envFrom:
+          - configMapRef:
+              name: tomcatapp-configmap
+          env:
+          - name: SPRING_DATASOURCE_USERNAME
+            valueFrom:
+              configMapKeyRef:
+                name: postgresapp-configmap
+                key: POSTGRES_USER
+          - name: SPRING_DATASOURCE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: postgresapp-secret
+                key: POSTGRES_PASSWORD

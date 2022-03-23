@@ -1,0 +1,34 @@
+# Default values for mychart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+postgres:
+  image:
+    name: ragatzino/initiation-docker-kube-postgres
+    tag: latest
+  user: postgres
+  db: postgres
+  secretpassword: mdp
+  pgdata: /data/pgdata
+
+  volume:
+    volumename: disque-postgres
+    volumemountpath: /data/
+  service:
+    name: postgres-app-service
+    port: 5432
+
+tomcat:
+  image:
+    name: ragatzino/initiation-docker-kube-tomcat
+    tag: latest
+  configmap:
+      hellomessage: bonjour
+      enableH2Console: "false"
+      datasourceUrlStart: "jdbc:postgresql://"
+      datasourceDriver: "org.postgresql.Driver"
+      datasourceJpaPlatform: "org.hibernate.dialect.PostgreSQLDialect"
+  ingress:
+    host: "toto"
+  deployment:
+    name: "tomcatappdeployment"
